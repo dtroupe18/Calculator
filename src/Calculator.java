@@ -3,6 +3,10 @@
 
 import javax.swing.*;
 
+
+// add memory recall in an arrayList so you can get any previous results?
+
+
 public class Calculator {
 
     private JFrame jFrame;
@@ -135,18 +139,75 @@ public class Calculator {
         seven.addActionListener(e -> textField.setText(textField.getText().concat("7")));
         eight.addActionListener(e -> textField.setText(textField.getText().concat("8")));
         nine.addActionListener(e -> textField.setText(textField.getText().concat("9")));
+        decimal.addActionListener(e -> textField.setText(textField.getText().concat(".")));
 
-//        decimal = new JButton(".");
-//        plusMinus = new JButton("±");
-//        squareRoot = new JButton("√ ");
-//
-//        // operator buttons
-//        add = new JButton("+");
-//        subtract = new JButton("-");
-//        multiply = new JButton("x");
-//        divide = new JButton("÷");
-//        clear = new JButton("C");
-//        equals = new JButton("=");
+        // operator actions
+        plusMinus.addActionListener(e -> {
+            x = Double.parseDouble(textField.getText());
+            x *= -1;
+            operator = 0;
+            textField.setText(Double.toString(x));
+        });
+
+        squareRoot.addActionListener(e -> {
+            x = Double.parseDouble(textField.getText());
+            y = Math.sqrt(x);
+            operator = 0;
+            textField.setText(Double.toString(y));
+        });
+
+        add.addActionListener(e -> {
+            x = Double.parseDouble(textField.getText());
+            operator = 1; // one for addition
+            textField.setText("");
+        });
+
+        subtract.addActionListener(e -> {
+            x = Double.parseDouble(textField.getText());
+            operator = 2; // two for subtraction
+            textField.setText("");
+        });
+
+        multiply.addActionListener(e -> {
+            x = Double.parseDouble(textField.getText());
+            operator = 3; // three for multiplication
+            textField.setText("");
+        });
+
+        divide.addActionListener(e -> {
+            x = Double.parseDouble(textField.getText());
+            operator = 4; // four for division
+            textField.setText("");
+        });
+
+        clear.addActionListener(e -> {
+            x = 0;
+            y = 0;
+            operator = 0;
+            textField.setText("");
+        });
+
+        equals.addActionListener(e -> {
+            y = Double.parseDouble(textField.getText());
+            // what operation do we want to perform?
+            if (operator == 1) {
+                solution = x + y;
+            }
+            else if (operator == 2) {
+                solution = x - y;
+            }
+            else if (operator == 3) {
+                solution = x * y;
+            }
+            else if (operator == 4) {
+                // division by zero results in infinity being displayed
+                solution = x / y;
+            }
+            else {
+                solution = 0;
+            }
+            textField.setText(Double.toString(solution));
+        });
     }
 
     public static void main(String[] args) {
